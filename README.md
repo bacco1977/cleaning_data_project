@@ -37,6 +37,7 @@ logicalMeanStdFeatures<-allfeatures[regexpr("std",allfeatures$V2)>0 | regexpr("m
 phase 4 - add activities, subjects and labels
 ==============================================
 In this phase the script merges the dataset with the activities, the activity labels and the subject.
+Subjects and Activities are added to the dataset using cbind
 Finally it sets the labels using the function colnames.
 
 
