@@ -28,7 +28,7 @@ subjecttest<- read.table (file="UCI HAR Dataset/test/subject_test.txt",header=FA
 
 
 
-# merge test and training  sets and merge the activities into a separate vector
+# merge test and training  sets ,e activities and subjects into 3 separate vectors
 totalactivities<- rbind(ytrain,ytest)
 totalsubject<- rbind(subjectTrain,subjecttest)
 mergedata<- rbind(totaltrain,totaltest)
@@ -39,7 +39,6 @@ mergedata<- rbind(totaltrain,totaltest)
 allfeatures<-read.table (file="UCI HAR Dataset/features.txt",header=FALSE ) 
 
 logicalMeanStdFeatures<-allfeatures[regexpr("std",allfeatures$V2)>0 | regexpr("mean",allfeatures$V2)>0  ,c(1,2)]
-#logicalMeanStdFeatures<-regexpr("std",allfeatures$V2)>0 | regexpr("mean",allfeatures$V2)>0
 
 #creates a new dataset with only the selected features
   
@@ -55,7 +54,7 @@ colnames(finalDataset)<-logicalMeanStdFeatures[,2]
 #add the activities labels
 
 colnames(finalDataset)[length(colnames(finalDataset))]<-"ActivityId"
-#Add the activityId lable
+#Add the activityId label
 finalDataset <- merge(finalDataset,activitylabel,by.x="ActivityId",by.y="V1")
 colnames(finalDataset)[length(colnames(finalDataset))]<-"Activity Description"
 
@@ -63,6 +62,8 @@ colnames(finalDataset)[length(colnames(finalDataset))]<-"Activity Description"
 
 finalDataset <-cbind (finalDataset,totalsubject)
 colnames(finalDataset)[length(colnames(finalDataset))]<-"Subject"
+
+#writing the file
 write.csv(finalDataset,"tidydataset1.txt")
 
 #I Have implemented only the first dataset. 
